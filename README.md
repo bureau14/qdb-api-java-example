@@ -7,3 +7,8 @@ To compile and run:
 
     mvn compile
     mvn exec:java
+
+or
+
+    gradle build
+    gradle run

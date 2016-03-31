@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'QdbExample'
+
+repositories {
+    maven {
+        url "http://maven.quasardb.net"
+    }
+}
+
+dependencies {
+    compile 'net.quasardb:qdb:2.0.0-SNAPSHOT'
+}
