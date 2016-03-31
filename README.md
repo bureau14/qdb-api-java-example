@@ -5,4 +5,5 @@ This is the example project of the Quasardb Java API.
 
 To compile and run:
 
-    mvn compile exec:java -Dexec.mainClass=example.App
+    mvn compile
+    mvn exec:java

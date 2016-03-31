@@ -10,7 +10,7 @@
   <repositories>
     <repository>
       <id>quasardb</id>
-      <name>Quasardb Official Maven Repository</name>
+      <name>Quasardb Official Repository</name>
       <url>http://maven.quasardb.net</url>
     </repository>
   </repositories>
@@ -21,4 +21,16 @@
       <version>2.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <configuration>
+          <mainClass>QdbExample</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

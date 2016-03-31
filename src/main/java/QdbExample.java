@@ -1,36 +1,34 @@
-package example;
-
 import net.quasardb.qdb.*;
 import java.nio.ByteBuffer;
 
 /**
  * An example of a Java program using Quasardb
  */
-public class App {
+public class QdbExample {
   final static String clusterUri = "qdb://127.0.0.1:2836";
-  static QdbCluster db;
 
   public static void main(String[] args) {
-    connectToCluster();
-    playWithInteger();
-    playWithBlob();
-    playWithDeque();
-    playWithTag();
-    removeEntries();
+    QdbCluster db = connectToCluster();
+    playWithInteger(db);
+    playWithBlob(db);
+    playWithDeque(db);
+    playWithTag(db);
+    removeEntries(db);
   }
 
-  static void connectToCluster() {
+  static QdbCluster connectToCluster() {
     try {
       System.out.println("Connecting to " + clusterUri);
-      db = new QdbCluster(clusterUri);
+      return new QdbCluster(clusterUri);
     } catch (QdbConnectionRefusedException ex) {
       System.err.println("Failed to connect to " + clusterUri +
                          ", make sure server is running!");
       System.exit(1);
+      return null;
     }
   }
 
-  static void playWithInteger() {
+  static void playWithInteger(QdbCluster db) {
     QdbInteger entrty = db.integer("example.integer");
 
     System.out.println("Create an integer entry");
@@ -46,7 +44,7 @@ public class App {
     System.out.println(entrty.get());
   }
 
-  static void playWithBlob() {
+  static void playWithBlob(QdbCluster db) {
     QdbBlob entry = db.blob("example.blob");
 
     ByteBuffer sample = createByteBuffer("Hello World!");
@@ -60,7 +58,7 @@ public class App {
     content.close();
   }
 
-  static void playWithDeque() {
+  static void playWithDeque(QdbCluster db) {
     QdbDeque entry = db.deque("example.deque");
 
     ByteBuffer sample1 = createByteBuffer("sample1");
@@ -79,7 +77,7 @@ public class App {
     }
   }
 
-  static void playWithTag() {
+  static void playWithTag(QdbCluster db) {
     QdbTag tag = db.tag("example.tag");
 
     System.out.println("Tag the integer from the tag handle");
@@ -95,7 +93,7 @@ public class App {
     }
   }
 
-  static void removeEntries() {
+  static void removeEntries(QdbCluster db) {
     System.out.println("Delete the integer");
     db.integer("example.integer").remove();
 
