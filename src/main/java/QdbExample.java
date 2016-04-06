@@ -86,7 +86,7 @@ public class QdbExample {
     db.deque("example.deque").addTag(tag);
 
     System.out.println("Enumerate tagged entries:");
-    for (QdbEntry entry : tag.getEntries()) {
+    for (QdbEntry entry : tag.entries()) {
       System.out.println(entry.alias());
       if (entry instanceof QdbInteger)
         System.out.println("Value is: " + ((QdbInteger)entry).get());
