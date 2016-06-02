@@ -10,5 +10,5 @@ repositories {
 }
 
 dependencies {
-    compile 'net.quasardb:qdb:2.0.0rc5'
+    compile 'net.quasardb:qdb:2.0.0rc6'
 }
