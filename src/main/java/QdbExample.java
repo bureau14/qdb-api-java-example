@@ -29,19 +29,19 @@ public class QdbExample {
   }
 
   static void playWithInteger(QdbCluster db) {
-    QdbInteger entrty = db.integer("example.integer");
+    QdbInteger entry = db.integer("example.integer");
 
     System.out.println("Create an integer entry");
-    entrty.put(12);
+    entry.put(12);
 
     System.out.println("Replace its value");
-    entrty.update(34);
+    entry.update(34);
 
     System.out.println("Increment");
-    entrty.add(8);
+    entry.add(8);
 
     System.out.print("Read value: ");
-    System.out.println(entrty.get());
+    System.out.println(entry.get());
   }
 
   static void playWithBlob(QdbCluster db) {
