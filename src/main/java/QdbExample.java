@@ -81,9 +81,9 @@ public class QdbExample {
     QdbTag tag = db.tag("example.tag");
 
     System.out.println("Tag the integer from the tag handle");
-    db.blob("example.integer").addTag(tag);
-    db.blob("example.blob").addTag(tag);
-    db.deque("example.deque").addTag(tag);
+    db.blob("example.integer").attachTag(tag);
+    db.blob("example.blob").attachTag(tag);
+    db.deque("example.deque").attachTag(tag);
 
     System.out.println("Enumerate tagged entries:");
     for (QdbEntry entry : tag.entries()) {
