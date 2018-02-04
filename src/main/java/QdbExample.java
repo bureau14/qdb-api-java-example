@@ -31,6 +31,7 @@ public class QdbExample {
         Session session = connectToCluster("qdb://127.0.0.1:2836");
 
         compareWriters(session);
+        compareReaders(session);
     }
 
     static Session connectToCluster(String uri) {
@@ -73,13 +74,23 @@ public class QdbExample {
          * As you can see directly after writing, none of the data has been written.
          * At this point all data is still in cache.
          */
-        readTable(session, Table.reader(session, t1, DEFAULT_RANGE));
+        System.out.println("rows in table: " +
+                           Table.reader(session,
+                                        t1,
+                                        DEFAULT_RANGE)
+                           .stream()
+                           .count());
 
         /**
          * Only after we explicitly flush the writer, the data becomes visible.
          */
         w1.flush();
-        readTable(session, Table.reader(session, t1, DEFAULT_RANGE));
+        System.out.println("rows in table: " +
+                           Table.reader(session,
+                                        t1,
+                                        DEFAULT_RANGE)
+                           .stream()
+                           .count());
 
         System.out.println("== Done! ==");
         System.out.println();
@@ -98,14 +109,22 @@ public class QdbExample {
          * As you can see directly after 75000 rows, only the first chunk of 50000 rows
          * have been written.
          */
-        readTable(session, Table.reader(session, t2, DEFAULT_RANGE));
+        System.out.println("rows in table: " +
+                           Table.reader(session,
+                                        t2,
+                                        DEFAULT_RANGE).stream().count());
 
         /**
          * After we either explicitly flush the writer, or write another 25000 rows, the
          * data becomes visible.
          */
         w2.flush();
-        readTable(session, Table.reader(session, t2, DEFAULT_RANGE));
+        System.out.println("rows in table: " +
+                           Table.reader(session,
+                                        t2,
+                                        DEFAULT_RANGE)
+                           .stream()
+                           .count());
 
         System.out.println("== Done! ==");
         System.out.println();
@@ -122,7 +141,10 @@ public class QdbExample {
 
         System.out.println("== Writing with auto flush writer with buffer length 1 ==");
         writeTable(session, w3, 75000);
-        readTable(session, Table.reader(session, t3, DEFAULT_RANGE));
+        System.out.println("rows in table: " +
+                           Table.reader(session,
+                                        t3,
+                                        DEFAULT_RANGE).stream().count());
 
 
         /**
@@ -139,8 +161,9 @@ public class QdbExample {
         }
     }
 
-    static void readTable(Session s, Reader w) {
-        System.out.println("Reading table...!");
+    static void readTable(Session s, Reader r) {
+        System.out.println("Reading table..., count: " + r.stream().count());
+
     }
 
     static Table createTable(Session session) {
