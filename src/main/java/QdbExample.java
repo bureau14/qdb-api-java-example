@@ -5,6 +5,9 @@ import net.quasardb.qdb.ts.Reader;
 import net.quasardb.qdb.ts.Column;
 import net.quasardb.qdb.ts.Value;
 import net.quasardb.qdb.ts.Row;
+import net.quasardb.qdb.ts.Query;
+import net.quasardb.qdb.ts.Result;
+
 import net.quasardb.qdb.ts.TimeRange;
 import net.quasardb.qdb.ts.Timespec;
 
@@ -190,6 +193,20 @@ public class QdbExample {
         System.out.println("== Done! ==");
         System.out.println();
 
+
+        /**
+         * In addition to a scan using the Reader, QuasarDB also offers a
+         * Query interface for ad-hoc retrieval and analysis of data.
+         */
+        String column = t.getColumns()[0].getName();
+        System.out.println("== Querying table ==");
+
+        Result r = Query.of("select " + column + " from "  + t.getName() + " in range(now, +1h)")
+            .execute(session);
+        System.out.println("has result: " + r.toString());
+
+        System.out.println("== Done! ==");
+        System.out.println();
 
 
     }
