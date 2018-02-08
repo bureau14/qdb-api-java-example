@@ -39,7 +39,7 @@ public class QdbExample {
             return Session.connect(uri);
         } catch (ConnectionRefusedException ex) {
             System.err.println("Failed to connect to " + uri +
-                               ", ma ke sure server is running!");
+                               ", make sure server is running!");
             System.exit(1);
             return null;
         }
@@ -140,7 +140,7 @@ public class QdbExample {
         Writer w3 = Table.autoFlushWriter(session, t3, 1);
 
         System.out.println("== Writing with auto flush writer with buffer length 1 ==");
-        writeTable(session, w3, 75000);
+        writeTable(session, w3, 1000);
         System.out.println("rows in table: " +
                            Table.reader(session,
                                         t3,
@@ -152,6 +152,46 @@ public class QdbExample {
          */
         System.out.println("== Done! ==");
         System.out.println();
+    }
+
+    static void compareReaders(Session session) throws IOException {
+        System.out.println("== Seeding table before read ==");
+        Table t = createTable(session);
+        Writer w = Table.writer(session, t);
+        writeTable(session, w, 100);
+        w.flush();
+        System.out.println("== Done! ==");
+        System.out.println();
+
+
+        /**
+         * The fastest way to traverse over an entire dataset is to use the Reader.
+         * It provides an Iterator interface on top of a timeseries table.
+         */
+
+        System.out.println("== Reading table as iterator ==");
+        Reader r1 = Table.reader(session, t, DEFAULT_RANGE);
+        while (r1.hasNext() == true) {
+            Row row = r1.next();
+            System.out.println(row.toString());
+        }
+        System.out.println("== Done! ==");
+        System.out.println();
+
+        /**
+         * It also exposes a Stream interface to allow for a more functional
+         * style, introduced in Java 8.
+         */
+        System.out.println("== Reading table as stream ==");
+        Table
+            .reader(session, t, DEFAULT_RANGE)
+            .stream()
+            .forEach(System.out::println);
+        System.out.println("== Done! ==");
+        System.out.println();
+
+
+
     }
 
     static void writeTable(Session s, Writer w, long count) throws IOException {
