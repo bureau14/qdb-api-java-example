@@ -8,7 +8,7 @@
   <name>Quasardb Java Example</name>
   <url>http://github.com/bureau14/qdb-api-java-example</url>
   <properties>
-    <quasardbVersion>2.3.0</quasardbVersion>
+    <quasardbVersion>2.1.0-SNAPSHOT</quasardbVersion>
   </properties>
   <repositories>
     <repository>
@@ -27,12 +27,16 @@
   <build>
     <plugins>
       <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.1</version>
+        <configuration>
+          <source>1.8</source>
+        </configuration>
+      </plugin>
+      <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
         <version>1.2.1</version>
-        <configuration>
-          <mainClass>QdbExample</mainClass>
-        </configuration>
       </plugin>
     </plugins>
   </build>
