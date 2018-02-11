@@ -189,10 +189,10 @@ public class QdbExample {
         Table
             .reader(session, t, DEFAULT_RANGE)
             .stream()
+            .parallel()
             .forEach(System.out::println);
         System.out.println("== Done! ==");
         System.out.println();
-
 
         /**
          * In addition to a scan using the Reader, QuasarDB also offers a
@@ -204,6 +204,11 @@ public class QdbExample {
         Result r = Query.of("select " + column + " from "  + t.getName() + " in range(now, +1h)")
             .execute(session);
         System.out.println("has result: " + r.toString());
+
+        /**
+         * Which is also available as a stream:
+         */
+        r.stream().parallel().forEach(System.out::println);
 
         System.out.println("== Done! ==");
         System.out.println();
