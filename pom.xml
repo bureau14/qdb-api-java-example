@@ -8,7 +8,7 @@
   <name>Quasardb Java Example</name>
   <url>http://github.com/bureau14/qdb-api-java-example</url>
   <properties>
-    <quasardbVersion>2.1.0-SNAPSHOT</quasardbVersion>
+    <quasardbVersion>2.3.0</quasardbVersion>
   </properties>
   <repositories>
     <repository>
