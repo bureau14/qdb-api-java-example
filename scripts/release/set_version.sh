@@ -20,7 +20,7 @@ XYZ_VERSION="${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION}"
 cd $(dirname -- $0)
 cd ${PWD}/../..
 
-# quasardbVersion=2.0.0
-sed -i -e 's/\s*quasardbVersion\s*=\s*[0-9.]\+/quasardbVersion='"${XYZ_VERSION}"'/' gradle.properties
+# quasardbVersion=2.0.0-SNAPSHOT
+sed -i -e 's/\s*quasardbVersion\s*=\s*[0-9.]\+.*$/quasardbVersion='"${XYZ_VERSION}"'/' gradle.properties
 # <quasardbVersion>2.0.0</quasardbVersion>
 sed -i -e 's|<quasardbVersion>.*</quasardbVersion>|<quasardbVersion>'"${XYZ_VERSION}"'</quasardbVersion>|' pom.xml
